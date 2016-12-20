@@ -1,49 +1,20 @@
-
-# Isomorphic React TypeScript Starter
+# Mix
 
 Based on https://github.com/toddlucas/react-tsx-starter
 I've added TSLint and postCSS to customise it to my tastes.
 
-This project includes a working example of React, React Router, and TypeScript.
-TypeScript 1.6 added much needed support for JSX parsing, in the form of TSX files.
 
-All the code is in TypeScript, written as either `.ts` or `.tsx` files. 
-The gulp-based build generates a browserified client file which is separate from the vendor file.
-The vendor file currently includes react (or react with addons) and react-router.
-This separation speeds up the build process and can result in fewer client downloads when new builds are released.
-The gulp build process works with gulp.watch.
-
-This is a basic starter project with a minimal number of views and components.
-As much as possible, the project uses ES6 conventions, which are supported by TypeScript.
-This includes the import statement and object destructuring, for example.
-
-Many recent React examples are written in ES6 and make use of [Babel](https://babeljs.io/).
-These are almost entirely compatible with this TypeScript based process.
-Most of the React views and components in this project are written as ES6 classes.
-However, it's also possible to use classic React components, as demonstrated by the HomeView.
-
-This starter also includes an example of how to use Redux with TypeScript.
-In order to keep the starter as clean as possible, the Redux example is on a branch.
 
 ## Features
 
-* React with React Router
-* Redux (on a separate branch)
-* TypeScript TSX
-* Isomorphic between server and client
-* Client app.js is browserified
-* Client vendor.js is browserified separately
-* Browserify-shim supports external scripts
-* Gulp based build with watch tasks
+TO DO:
+* Authenticate with spotify
+* Select seed tracks
+* Set search parameters
+* Create a playlist from search results
 
-## Versions
+DONE:
 
-This template supports the following versions for key dependencies:
-
-* [React](https://facebook.github.io/react/) 15.0
-* [React Router](https://github.com/rackt/react-router) 2.2
-* [Redux](https://github.com/rackt/redux) 3.4 ([redux branch](https://github.com/toddlucas/react-tsx-starter/tree/redux))
-* [TypeScript](http://www.typescriptlang.org/) 1.6 - 1.8
 
 # Usage
 
