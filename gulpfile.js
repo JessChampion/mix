@@ -40,8 +40,11 @@ var build = {
       ],
 
       // Styles
-      styles: paths.source + 'styles/**/*.css',
+      styles: paths.source + 'styles/**/*.pcss',
       stylesMin: paths.source + 'styles/**/*.min.css',
+
+      // Fonts
+      fonts: paths.source + 'fonts/**/*.ttf',
 
       // Scripts
       scripts: paths.source + 'scripts/**/*.js',
@@ -78,6 +81,7 @@ var build = {
       images: paths.output + 'images',
       root: paths.output,
       styles: paths.output + 'styles',
+      fonts: paths.output + 'fonts',
       scripts: paths.output + 'scripts',
       polyfills: paths.output + 'polyfills',
       views: paths.output + 'views'
@@ -146,7 +150,7 @@ gulp.task('typescript', function () {
       module: 'commonjs',
       diagnostics: true,
       sourceMap: true,
-      target: 'ES5',
+      target: 'ES6',
       jsx: 'react'
     }));
 
@@ -218,7 +222,12 @@ gulp.task('views', function () {
     .pipe(gulp.dest(build.output.dirs.views));
 });
 
-gulp.task('copy', ['scripts', 'styles', 'polyfills', 'images', 'root', 'views'], function () {
+gulp.task('fonts', function () {
+  return gulp.src(build.input.files.fonts)
+    .pipe(gulp.dest(build.output.dirs.fonts));
+});
+
+gulp.task('copy', ['scripts', 'styles', 'fonts', 'polyfills', 'images', 'root', 'views'], function () {
 });
 
 gulp.task('compile', function (callback) {

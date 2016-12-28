@@ -1,4 +1,4 @@
-﻿﻿/// <reference path="../typings/index.d.ts"/>
+﻿/// <reference path="../typings/index.d.ts"/>
 
 import express = require('express');
 import * as history from 'history';
@@ -33,7 +33,7 @@ app.get('/help', (req, res) => {
   res.render('help', {title: 'Help', min});
 });
 
-app.use((req, res, next) => {
+app.use((req, res) => { // next) => {
   const location = memoryHistory.createLocation(req.url);
 
   match({routes, location}, (error, redirectLocation, renderProps: any) => {

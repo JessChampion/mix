@@ -1,5 +1,5 @@
-﻿﻿import * as React from 'react';
-import {incrementCounter} from '../actions/immediate';
+﻿import * as React from 'react';
+import {incrementCounter} from '../actions/index';
 import {IStore, IStoreContext} from '../reducers';
 
 export interface IAboutState {

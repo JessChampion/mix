@@ -1,4 +1,4 @@
-import {INCREMENT_COUNTER} from '../../actions/immediate';
+import {INCREMENT_COUNTER} from '../../actions/index';
 
 export interface ISampleState {
   counter: number;

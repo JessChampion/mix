@@ -1,17 +1,18 @@
-
 import * as React from 'react';
-import * as Router from 'react-router';
-import { Route, IndexRoute } from 'react-router';
+import { IndexRoute, Route } from 'react-router';
 
-import AppFrame from './views/AppFrame';
-import NotFoundView from './views/NotFoundView';
-import HomeView from './views/HomeView';
 import AboutView from './views/AboutView';
+import AppFrame from './views/AppFrame';
+import LoginView from './views/LoginView';
+import NotFoundView from './views/NotFoundView';
+import SearchView from './views/SearchView';
 
-var routeMap = (
+const routeMap = (
     <Route path="/" component={AppFrame}>
-        <IndexRoute component={HomeView}/>
+        <IndexRoute component={SearchView}/>
+        <Route path="/login" component={LoginView}/>
         <Route path="/about" component={AboutView}/>
+        <Route path="/search" component={SearchView}/>
         <Route path="*" component={NotFoundView} />
     </Route>
 );
