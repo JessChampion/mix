@@ -248,6 +248,10 @@ gulp.task('watch', function () {
   gulp.watch(build.input.files.styles, ['styles']);
 });
 
+gulp.task('dev', function (callback) {
+  runSequence('build', 'watch', callback);
+});
+
 // The default task (called when running 'gulp' from the command line).
 gulp.task('default', ['copy', 'compile'], function () {
 });
