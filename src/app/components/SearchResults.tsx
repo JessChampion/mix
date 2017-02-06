@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {addSeed} from '../actions/settings';
 import {IStore, IStoreContext} from '../reducers';
 import {ISearchState} from '../reducers/reducers/search';
 
@@ -40,25 +41,59 @@ export default class SearchResults extends React.Component<any, any> {
     this.setState(mapStateFromStore(this.context.store.getState()));
   }
 
-  render() {
-    let loadingResults = this.state.searchResults.loading;
-    let results = this.state.searchResults.data;
-    if (loadingResults) {
-      return (
-        <div>
-          <div className="searchResults">
-            <h2 className="heading">Add seed tracks</h2>
-            <div>loading...</div>
-          </div>
+  addSeedTrack(result) {
+    //noinspection TypeScriptValidateTypes
+    this.context.store.dispatch(addSeed(result));
+  }
+
+  renderLoading() {
+    return (
+      <div className="searchResults">
+        <h2 className="heading">Add seed tracks</h2>
+        <div className="resultsHolder">
+          <div>loading...</div>
         </div>
-      );
+      </div>
+    );
+  }
+
+  renderResults(results: any) {
+    return (
+      <div className="searchResults">
+        <div className="resultsHolder">
+          {results.map((item, index) => this.renderResult(item, index))}
+        </div>
+      </div>
+    );
+  }
+
+  renderResult(result: any, index: number) {
+    return (
+      <div className="result"
+           key={index}
+           onClick={this.addSeedTrack.bind(this, result)}>
+          <div className="details">
+            {/*<i className="fa fa-music" aria-hidden="true"/>*/}
+            <span className="track">{result.name}</span>
+            <span className="artist">{result.artist}</span>
+          </div>
+      </div>
+    );
+  }
+
+  render() {
+    let {data, loading} = this.state.searchResults;
+    let content = null;
+    if (loading) {
+      content = this.renderLoading();
     }
+    if (data) {
+      content = this.renderResults(data);
+    }
+
     return (
       <div>
-        <div className="searchResults">
-          <h2 className="heading">Add seed tracks</h2>
-          {JSON.stringify(results)}
-        </div>
+        {content}
       </div>
     );
   }

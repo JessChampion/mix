@@ -1,0 +1,5 @@
+main: rgba(175, 163, 163, 1);
+25% lighter: rgba(219, 225, 225, 1);
+45% lighter: rgba(254, 236, 236, 1);
+25% darker: rgba(131, 122, 122, 1);
+45% darker: rgba(96, 90, 90, 1);

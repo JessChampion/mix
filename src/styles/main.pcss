@@ -1,22 +1,84 @@
+html, body, #body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.appWrapper{
+  position: static;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
 body {
   font-family: Muli, "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
   line-height: 1.4;
-  background: #dfdfdf;
+  background: #eeebea;
+  margin: -2rem 0;
+  padding: 2rem 0;
 }
+
 
 h1, h2, h3 {
   font-family: PermanentMarker, Arial, sans-serif;
+  color: #423736;
 }
 
 h4, h5, h6 {
   font-family: Muli, "Helvetica Neue", Arial, sans-serif;
 }
 
-.mainContent {
-  width: 100%;
+h1{
+  font-size: 3rem;
+}
+
+h2{
+  font-size: 2rem;
+}
+
+h3{
+  font-size: 1.75rem;
+}
+
+button, .button{
+  height: calc( 2rem + 2px );
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #6d5c59;
+  color: #F9F9F9;
+  font-size: 1rem;
+}
+
+input[type='text']{
+    height: 2rem;
+    padding: 0 0.5rem;
+    border: 1px solid #6d5c59;
+    border-radius: 0.5rem;
+    background: #F9F9F9;
+    font-size: 1rem;
+}
+
+.mainView{
+  position: relative;
+  min-height: calc(100% - 19rem);
+  padding: 5rem 0 0 0;
+}
+
+.section {
+  width: calc(100% - 2rem);
   max-width: 50rem;
   height: 100%;
-  margin: 1rem auto;
-  background: white;
+  margin: 0 auto 0.5rem;
+  padding: 0 1rem;
+  @media screen and (min-width: 50rem) {
+    width: 100%;
+    padding: 0;
+  }
 }

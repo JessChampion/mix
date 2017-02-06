@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import * as React from 'react';
-import {searchSpotify} from '../actions/index';
+import {searchSpotify} from '../actions/search';
 import {IStore, IStoreContext} from '../reducers';
 import {ISearchState} from '../reducers/reducers/search';
 
@@ -54,17 +54,19 @@ export default class SearchForm extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <form className="search-form"
+        <form className="searchForm"
               onSubmit={(evt) => this.submitSearch(evt)}
         >
-          <h2 className="heading">Search for a track</h2>
-          <div className="field">
-            <input className="search-box"
-                   type="text"
-                   name="searchQuery"
-            />
-            <input type="submit" value="Search"/>
-          </div>
+          <h2 className="heading">Add seed tracks</h2>
+          <input className="searchBox"
+                 type="text"
+                 placeholder="Add seed tracks"
+                 name="searchQuery"
+          />
+          <input type="submit"
+                 value="Search"
+                 className="button"
+          />
         </form>
       </div>
     );

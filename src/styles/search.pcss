@@ -1,0 +1,65 @@
+.searchView{
+  margin-bottom: 1.5rem;
+}
+
+.searchForm {
+  margin: 0 0 1.75rem;
+  .heading{
+    margin: 1rem 0 0.5rem;
+  }
+  .searchBox {
+    width: calc(100% - 10rem);
+  }
+  .button {
+    float: right;
+    width: 8rem;
+  }
+}
+
+.searchResults{
+  .heading{
+    margin: 1rem 0;
+  }
+  .resultsHolder {
+    margin: 0;
+  }
+}
+
+.result {
+  width: calc(100% - 2rem);
+  margin: 0 0 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid #6d5c59;
+  border-radius: 0.25rem;
+  background: #F9F9F9;
+  cursor: pointer;
+
+  .details {
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.1;
+    padding-left: 1.5rem;
+    &:before{
+      content: '+';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-family: PermanentMarker, Arial, sans-serif;
+      font-size:2rem;
+      line-height: 0.4;
+    }
+
+    &> span{
+      display: inline-block;
+      width: calc(50% - 2rem);
+      margin-left: 0.5rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .artist {
+      margin-left: 1.5rem;
+      font-style: italic;
+    }
+  }
+}

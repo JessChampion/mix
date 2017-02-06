@@ -1,14 +1,14 @@
 import * as fetch from 'isomorphic-fetch';
 import * as R from 'ramda';
 
-import {SEARCH_RESULTS, SEARCH_SPOTIFY, searchResults} from '../../actions/index';
+import {SEARCH_RESULTS, SEARCH_SPOTIFY, searchResults} from '../../actions/search';
 import store from '../../store';
+import {parseTracksResult} from '../../utils/SpotifyParser';
 
 const SEARCH = 'https://api.spotify.com/v1/search';
 
 const getTracks = R.path(['tracks', 'items']);
-const getTrackDetails = R.pickAll(['id', 'name', 'href']);
-const getArtist = R.path(['artists', '0', 'name']);
+const parseResults =  R.compose(parseTracksResult, getTracks);
 
 export interface ISearchState {
   searchResults: any;
@@ -50,14 +50,4 @@ async function search(url) {
   }
   let data = await response.json();
   return parseResults(data);
-}
-
-function parseResults(response) {
-  let results: any = getTracks(response);
-  results = R.map((item: any) => {
-    let track = getTrackDetails(item);
-    let artist = {artist: getArtist(item)};
-    return R.merge(artist, track);
-  }, results);
-  return results;
 }

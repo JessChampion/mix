@@ -1,8 +1,9 @@
 import {Store} from 'redux';
 
 import {IAuthState} from './reducers/auth';
-import {ISampleState} from './reducers/sample';
+import {IPlayState} from './reducers/play';
 import {ISearchState} from './reducers/search';
+import {ISettingsState} from './reducers/settings';
 
 //
 // Store interfaces
@@ -14,13 +15,15 @@ import {ISearchState} from './reducers/search';
 
 export interface IStore {
   auth: IAuthState;
-  sample: ISampleState;
   search: ISearchState;
+  settings: ISettingsState;
+  play: IPlayState;
 }
 
 export interface IStoreContext { store: Store<any>;
 }
 
-export {default as sample} from './reducers/sample';
 export {default as auth} from './reducers/auth';
 export {default as search} from './reducers/search';
+export {default as settings} from './reducers/settings';
+export {default as play} from './reducers/play';

@@ -1,7 +1,8 @@
-﻿import * as React from 'react';
-import {loggedInWithSpotify, loginWithSpotify} from '../actions/index';
-import {IStore, IStoreContext} from '../reducers';
+﻿﻿import * as React from 'react';
+// import * as R from 'ramda';
 
+import {loggedInWithSpotify, login} from '../actions/auth';
+import {IStore, IStoreContext} from '../reducers';
 export interface ILoginState {
   loaded?: boolean;
   token?: string;
@@ -32,18 +33,22 @@ export default class LoginView extends React.Component<any, ILoginState> {
     // This helper wraps common code so we can initialze state and then subscribe.
     this.setStateFromStore();
     this.unsubscribe = this.context.store.subscribe(this.setStateFromStore.bind(this));
-
-    this.checkForToken();
   }
 
   checkForToken() {
-    // http://localhost:3000/login#access_token=BQD9a0oBosPfJHdpyyuGfd4CI8NEgsiWMOBqN6MA4WaV-JiPriemXRhmle5E8gQrz-
-    // HP45Cxejn0BTOe_CYpDVKfhnNV2-KuiyGRCc6EwI2va7DtnWZ2w3zu2PgTAqnL1MoUPUPa_yxDi--dYDvG
-    // &token_type=Bearer&expires_in=3600&state=login
-    let params = window.location.hash;
-    console.log(params);
-    //noinspection TypeScriptValidateTypes
-    this.context.store.dispatch(loggedInWithSpotify(params));
+    let {
+      location,
+      history
+    } = this.props;
+    let params = location.hash;
+    if (params) {
+      if (!this.state.token) {
+        //noinspection TypeScriptValidateTypes
+        this.context.store.dispatch(loggedInWithSpotify(params));
+      } else {
+        history.push('/');
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -56,13 +61,16 @@ export default class LoginView extends React.Component<any, ILoginState> {
     this.setState(mapStateFromStore(this.context.store.getState()));
   }
 
+  componentWillUpdate() {
+    this.checkForToken();
+  }
+
   loginWithSpotify() {
     //noinspection TypeScriptValidateTypes
-    this.context.store.dispatch(loginWithSpotify());
+    this.context.store.dispatch(login());
   }
 
   render() {
-    let loading = this.state.loaded ? '' : ' (loading...)';
     return (
       <div className="loginView">
         <div className="login">
