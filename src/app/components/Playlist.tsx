@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {addSeed} from '../actions/settings';
+import {pruneMix} from '../actions/play';
 import {IStore, IStoreContext} from '../reducers';
 import {IPlayState} from '../reducers/reducers/play';
 
@@ -21,7 +21,7 @@ export default class Playlist extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     if (!this.state) {
-      this.state = {mix: []};
+      this.state = {searchResults: {loading: false}};
     }
   }
 
@@ -41,6 +41,11 @@ export default class Playlist extends React.Component<any, any> {
     this.setState(mapStateFromStore(this.context.store.getState()));
   }
 
+  removeTrack(trackId) {
+    //noinspection TypeScriptValidateTypes
+    this.context.store.dispatch(pruneMix(trackId));
+  }
+
   renderLoading() {
     return (
       <div className="playlist">
@@ -51,11 +56,22 @@ export default class Playlist extends React.Component<any, any> {
     );
   }
 
-  renderResults(mix: any) {
+  renderTrack(song, index) {
+    return (
+      <div className="song" key={song.id}>
+        <span className="songNumber">{index + 1}</span>
+        <span className="name">{song.name}</span>
+        <span className="artist">{song.artist}</span>
+        <span className="close" onClick={this.removeTrack.bind(this, song.id)}>x</span>
+      </div>
+    );
+  }
+
+  renderTracks(mix: any) {
     return (
       <div className="playlist">
         <div className="playlistHolder">
-          {JSON.stringify(mix, null, 2)};
+          {mix.map((item, index) => this.renderTrack(item, index))}
         </div>
       </div>
     );
@@ -64,12 +80,8 @@ export default class Playlist extends React.Component<any, any> {
   render() {
     let {mix} = this.state;
     let content = (!this.state.mix || this.state.mix.length <= 0) ?
-    this.renderLoading() : this.renderResults(mix);
+    this.renderLoading() : this.renderTracks(mix);
 
-    return (
-      <div>
-        {content}
-      </div>
-    );
+    return (<div>{content}</div>);
   }
 };

@@ -28,10 +28,8 @@ const MainView = React.createClass({
             </div>
           </div>
         </div>
-        <div className="rightCol">
-          <div className="playlistPanel section">
-            <Playlist/>
-          </div>
+        <div className="playlistView section">
+          <Playlist/>
         </div>
       </div>
     );

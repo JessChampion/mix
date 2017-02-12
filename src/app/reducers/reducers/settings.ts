@@ -1,16 +1,17 @@
-import { browserHistory } from 'react-router';
 import * as fetch from 'isomorphic-fetch';
 import * as R from 'ramda';
+import { browserHistory } from 'react-router';
 
-import {ADD_SEED, CREATE_MIX, LOADED_THUMBNAIL, loadedThumbnail, REMOVE_SEED} from '../../actions/settings';
 import {recievedMix} from '../../actions/play';
+import {ADD_SEED, CREATE_MIX, LOADED_THUMBNAIL, REMOVE_SEED} from '../../actions/settings';
 import store from '../../store';
+import {loadThumbnail} from '../../utils/SpotifyParser';
+
 const BASE = 'http://localhost:3000/';
 const MAX_SEEDS = 5;
 const MIN_POPULARITY = 50;
 const RECOMMENDATIONS = 'https://api.spotify.com/v1/recommendations?';
 
-const getThumbnail = R.compose(R.find(R.propEq('height', 300)), R.path(['album', 'images']));
 const findIndexById = R.curry((id: string, seeds: any[]) => {
   return R.findIndex(R.propEq('id', id))(seeds);
 });
@@ -66,24 +67,6 @@ export default function settingsReducer(state: ISettingsState = {seeds: [], seed
     }
   }
   return state;
-}
-
-async function loadThumbnail(id: number, url: string) {
-  console.log(url);
-  let response: any = await fetch(url);
-  if (response.status >= 400) {
-    console.log(JSON.stringify(response));
-    throw new Error('Bad response from server');
-  }
-  let data = await response.json();
-  return parseResults(id, data);
-}
-
-function parseResults(id, response) {
-  let imageUrl = getThumbnail(response).url;
-  console.log(JSON.stringify(imageUrl));
-  //noinspection TypeScriptValidateTypes
-  store.dispatch(loadedThumbnail(id, imageUrl));
 }
 
 async function createAMix(seeds: any[]) {

@@ -3,5 +3,29 @@
 }
 
 .playlist{
+  background-color: white;
+}
 
+.song{
+  padding: 0.5rem;
+  border-bottom: 1px solid #6d5c59;
+  > span {
+    display: inline-block;
+    margin-right: 1.5rem;
+    &:last-of-type{
+      margin-right: 0;
+    }
+  }
+
+  .name, .artist{
+    width: calc(50% - 4rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .close{
+    float: right;
+    cursor: pointer;
+  }
 }

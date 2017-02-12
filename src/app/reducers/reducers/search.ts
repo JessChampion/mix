@@ -8,13 +8,33 @@ import {parseTracksResult} from '../../utils/SpotifyParser';
 const SEARCH = 'https://api.spotify.com/v1/search';
 
 const getTracks = R.path(['tracks', 'items']);
-const parseResults =  R.compose(parseTracksResult, getTracks);
+const parseResults = R.compose(parseTracksResult, getTracks);
+
+const getUrl = (query) => SEARCH + '?q=' + encodeURI(query) + '&type=track';
+const searchURL = async (url) => {
+  let response: any = await fetch(url);
+  if (response.status >= 400) {
+    console.log(JSON.stringify(response));
+    throw new Error('Bad response from server');
+  }
+  return parseResults(await response.json());
+};
+
+const search = R.compose(searchURL, getUrl);
+
+const doSpotifySearch = (query) => {
+  search(query).then((data) => {
+    console.log('DATA: ' + JSON.stringify(data));
+    //noinspection TypeScriptValidateTypes
+    store.dispatch(searchResults(data));
+  });
+};
 
 export interface ISearchState {
   searchResults: any;
 }
 
-export default function searchReducer(state: ISearchState = {searchResults: []}, action): ISearchState {
+const searchReducer = (state: ISearchState = {searchResults: []}, action): ISearchState => {
   switch (action.type) {
     case SEARCH_SPOTIFY: {
       doSpotifySearch(action.query);
@@ -30,24 +50,6 @@ export default function searchReducer(state: ISearchState = {searchResults: []},
     }
   }
   return state;
-}
+};
 
-function doSpotifySearch(query) {
-  let url = SEARCH + '?q=' + encodeURI(query) + '&type=track';
-  console.log(url);
-  search(url).then((data) => {
-    console.log('DATA: ' + JSON.stringify(data));
-    //noinspection TypeScriptValidateTypes
-    store.dispatch(searchResults(data));
-  });
-}
-
-async function search(url) {
-  let response: any = await fetch(url);
-  if (response.status >= 400) {
-    console.log(JSON.stringify(response));
-    throw new Error('Bad response from server');
-  }
-  let data = await response.json();
-  return parseResults(data);
-}
+export default searchReducer;

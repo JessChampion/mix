@@ -5,14 +5,6 @@ import {IPlayState} from './reducers/play';
 import {ISearchState} from './reducers/search';
 import {ISettingsState} from './reducers/settings';
 
-//
-// Store interfaces
-//
-// The interfaces may be used by reducers to help enforce type safety.
-// They may also be used by components that have state mappers that
-// subscribe to store changes.
-//
-
 export interface IStore {
   auth: IAuthState;
   search: ISearchState;

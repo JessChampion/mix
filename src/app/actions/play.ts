@@ -5,3 +5,11 @@ export function recievedMix(mix: any) {
     mix
   };
 }
+
+export const PRUNE_MIX = 'PRUNE_MIX';
+export function pruneMix(trackID: string) {
+  return {
+    type: PRUNE_MIX,
+    trackID
+  };
+}
