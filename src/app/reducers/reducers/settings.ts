@@ -1,6 +1,6 @@
 import * as fetch from 'isomorphic-fetch';
 import * as R from 'ramda';
-import { browserHistory } from 'react-router';
+import {browserHistory}  from 'react-router';
 
 import {recievedMix} from '../../actions/play';
 import {ADD_SEED, CREATE_MIX, LOADED_THUMBNAIL, REMOVE_SEED} from '../../actions/settings';
@@ -11,6 +11,10 @@ const BASE = 'http://localhost:3000/';
 const MAX_SEEDS = 5;
 const MIN_POPULARITY = 50;
 const RECOMMENDATIONS = 'https://api.spotify.com/v1/recommendations?';
+const KEYS = {
+  POPULARITY: '&min_popularity=',
+  SEEDS: 'seed_tracks='
+};
 
 const findIndexById = R.curry((id: string, seeds: any[]) => {
   return R.findIndex(R.propEq('id', id))(seeds);
@@ -21,6 +25,11 @@ const hasSeed = (id: string, seeds: any[]) => {
 const removeAtIndex = R.curry((index: number, seeds: any[]) => R.remove(index, 1, seeds));
 const getSeedString = R.compose(R.join(','), R.pluck('id'));
 const getToken = R.path(['auth', 'token']);
+const getRecommendationsURL = (seeds) => R.join('', [
+  RECOMMENDATIONS, KEYS.SEEDS,
+  getSeedString(seeds),
+  KEYS.POPULARITY,
+  MIN_POPULARITY]);
 
 export interface ISettingsState {
   seeds: any[];
@@ -71,9 +80,8 @@ export default function settingsReducer(state: ISettingsState = {seeds: [], seed
 
 async function createAMix(seeds: any[]) {
   let token = getToken(store.getState());
-  if (!token) {
-    // TODO: use react router
-    window.setTimeout(() => window.location.href = BASE + 'login', 1000);
+  if (!token) { // TODO: check tocken expiry
+    browserHistory.push('/login');
   }
   let request = new Request(getRecommendationsURL(seeds), {
     headers: new Headers({
@@ -82,19 +90,13 @@ async function createAMix(seeds: any[]) {
     })
   });
   let response: any = await fetch(request);
-  if (response.status >= 400) {
+  if (response.status === 401) {
+    browserHistory.push('/login');
+  } else if (response.status >= 400) {
     console.log(JSON.stringify(response));
-    throw new Error('Bad response from server');
+    throw new Error('Bad response from server: ' + JSON.stringify(response));
   }
   let data = await response.json();
   //noinspection TypeScriptValidateTypes
   store.dispatch(recievedMix(data));
-  browserHistory.push('/play');
 }
-
-function getRecommendationsURL(seeds) {
-  return RECOMMENDATIONS +
-    'seed_tracks=' + getSeedString(seeds)
-    + '&min_popularity=' + MIN_POPULARITY;
-}
-

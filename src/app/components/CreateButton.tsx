@@ -4,7 +4,6 @@ import {createMix} from '../actions/settings';
 import {IStore, IStoreContext} from '../reducers';
 import {ISettingsState} from '../reducers/reducers/settings';
 
-
 // The mapping function tailors the store's state to the view's state.
 function mapStateFromStore(store: IStore): ISettingsState {
   return {

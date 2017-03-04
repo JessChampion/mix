@@ -21,20 +21,24 @@ function saveToLocalStorage(key: string, value: any) {
 
 const doParse = (str) => {
   console.log('PARSE: ' + str);
+  if (!str) {
+    return {};
+  }
   return JSON.parse(str);
-}
+};
+
 const doStringify = (json) => {
   console.log('STRINGIFY: ' + json);
   return JSON.stringify(json);
-}
+};
 
 const loadAndParse = R.compose(doParse, loadFromLocalStorage);
 
-export function loadStateFromStore(){
+export function loadStateFromStore() {
   return loadAndParse(STORE_KEY);
 }
 
 const stringifyAndSave = R.pipe(doStringify, R.curry(saveToLocalStorage)(STORE_KEY));
-export function saveStateToStore(value: any){
+export function saveStateToStore(value: any) {
   stringifyAndSave(value);
-};
+}
