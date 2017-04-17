@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { IndexRoute, Route } from 'react-router';
+import { browserHistory, IndexRoute, Route } from 'react-router';
 
 import AppFrame from './views/AppFrame';
 import LoginView from './views/LoginView';
+import MainView from './views/MainView';
 import NotFoundView from './views/NotFoundView';
-import SearchView from './views/MainView';
 
 const routeMap = (
     <Route path="/" component={AppFrame}>
-        <IndexRoute component={SearchView}/>
+        <IndexRoute component={MainView}/>
         <Route path="/login" component={LoginView}/>
-        <Route path="/search" component={SearchView}/>
+        <Route path="/search" component={MainView}/>
         <Route path="*" component={NotFoundView} />
     </Route>
 );

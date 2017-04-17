@@ -57,7 +57,6 @@ export default class SearchForm extends React.Component<any, any> {
         <form className="searchForm"
               onSubmit={(evt) => this.submitSearch(evt)}
         >
-          <h2 className="heading">Add seed tracks</h2>
           <input className="searchBox"
                  type="text"
                  placeholder="Add seed tracks"

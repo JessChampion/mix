@@ -49,6 +49,7 @@
     ]
   },
   "rules": {
+    "ban-types": false,
     "class-name": true,
     "comment-format": [
       true,

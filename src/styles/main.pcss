@@ -1,11 +1,11 @@
-html, body, #body{
+html, body, #body {
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-.appWrapper{
+.appWrapper {
   position: static;
   top: 0;
   left: 0;
@@ -15,6 +15,7 @@ html, body, #body{
   padding: 0;
   overflow: auto;
 }
+
 body {
   font-family: Muli, "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
@@ -23,7 +24,6 @@ body {
   margin: -2rem 0;
   padding: 2rem 0;
 }
-
 
 h1, h2, h3 {
   font-family: PermanentMarker, Arial, sans-serif;
@@ -34,20 +34,20 @@ h4, h5, h6 {
   font-family: Muli, "Helvetica Neue", Arial, sans-serif;
 }
 
-h1{
+h1 {
   font-size: 3rem;
 }
 
-h2{
+h2 {
   font-size: 2rem;
 }
 
-h3{
+h3 {
   font-size: 1.75rem;
 }
 
-button, .button{
-  height: calc( 2rem + 2px );
+button, .button {
+  height: calc(2rem + 2px);
   padding: 0.5rem 2rem;
   border: none;
   border-radius: 0.5rem;
@@ -56,29 +56,70 @@ button, .button{
   font-size: 1rem;
 }
 
-input[type='text']{
-    height: 2rem;
-    padding: 0 0.5rem;
-    border: 1px solid #6d5c59;
-    border-radius: 0.5rem;
-    background: #F9F9F9;
-    font-size: 1rem;
+input[type='text'] {
+  height: 2rem;
+  padding: 0 0.5rem;
+  border: 1px solid #6d5c59;
+  border-radius: 0.5rem;
+  background: #F9F9F9;
+  font-size: 1rem;
 }
 
-.mainView{
+.mainView {
   position: relative;
   min-height: calc(100% - 19rem);
   padding: 5rem 0 0 0;
 }
 
 .section {
-  width: calc(100% - 2rem);
+  width: calc(100% - 2.1rem);
   max-width: 50rem;
   height: 100%;
-  margin: 0 auto 0.5rem;
-  padding: 0 1rem;
+  margin: 0.5rem;
+  padding: 0 0.5rem;
+  border: 1px solid #cdcdcd;
+  border-radius: 0.5rem;
   @media screen and (min-width: 50rem) {
-    width: 100%;
+    width: calc(100% - 0.5rem);
+    margin: 0.5rem auto;
     padding: 0;
+  }
+
+  .section-header {
+    position: relative;
+    padding: 0.25rem 0.75rem 0.5rem;
+    h2 {
+      display: inline-block;
+      margin: 0;
+    }
+    .toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 2rem;
+      padding: 0 0.5rem;
+
+      i::after {
+        content: "";
+        position: absolute;
+        top:1.25rem;
+        width: 0;
+        height: 0;
+        border-left: 1rem solid transparent;
+        border-right: 1rem solid transparent;
+        border-top: 1rem solid #6d5c59;
+        border-radius: 0.5rem;
+      }
+
+      i.collapsed::after {
+        top:1.2rem;
+        border-top: none;
+        border-bottom: 1rem solid #6d5c59;
+      }
+    }
+  }
+  .section-body {
+    padding: 0.5rem 0.75rem;
   }
 }

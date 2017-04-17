@@ -1,5 +1,5 @@
-﻿﻿import * as React from 'react';
-// import * as R from 'ramda';
+﻿import * as React from 'react';
+import { browserHistory } from 'react-router';
 
 import {loggedInWithSpotify, login} from '../actions/auth';
 import {IStore, IStoreContext} from '../reducers';
@@ -36,17 +36,13 @@ export default class LoginView extends React.Component<any, ILoginState> {
   }
 
   checkForToken() {
-    let {
-      location,
-      history
-    } = this.props;
-    let params = location.hash;
+    const params = this.props.location.hash;
     if (params) {
       if (!this.state.token) {
         //noinspection TypeScriptValidateTypes
         this.context.store.dispatch(loggedInWithSpotify(params));
       } else {
-        history.push('/');
+        browserHistory.push('/');
       }
     }
   }

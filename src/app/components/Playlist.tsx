@@ -67,20 +67,28 @@ export default class Playlist extends React.Component<any, any> {
     );
   }
 
-  renderTracks(mix: any) {
-    return (
-      <div className="playlist">
-        <div className="playlistHolder">
-          {mix.map((item, index) => this.renderTrack(item, index))}
+  renderTracks(mix: any[]) {
+    if (mix.length > 0) {
+      return (
+        <div className="playlist">
+          <div className="playlistHolder">
+            {mix.map((item, index) => this.renderTrack(item, index))}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="playlist">
+          <div className="playlistHolder"/>
+        </div>
+      );
+    }
   }
 
   render() {
-    let {mix} = this.state;
-    let content = (!this.state.mix || this.state.mix.length <= 0) ?
-    this.renderLoading() : this.renderTracks(mix);
+    const {mix} = this.state;
+    console.log(mix);
+    const content = (mix) ? this.renderTracks(mix) : this.renderLoading();
 
     return (<div>{content}</div>);
   }

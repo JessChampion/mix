@@ -4,6 +4,7 @@ import CreateButton from '../components/CreateButton';
 import Playlist from '../components/Playlist';
 import SearchForm from '../components/SearchForm';
 import SearchResults from '../components/SearchResults';
+import Section from '../components/Section';
 import Seeds from '../components/Seeds';
 
 const MainView = React.createClass({
@@ -14,23 +15,19 @@ const MainView = React.createClass({
           <div className="header section">
             <h1>MIX</h1>
           </div>
+          {/*<div><Link to="/about">About</Link></div>*/}
         </div>
-        <div className="leftCol">
-          <div className="searchView section">
-            <SearchForm/>
-            <SearchResults/>
-            {/*<div><Link to="/about">About</Link></div>*/}
-          </div>
-          <div className="settingsBar">
-            <div className="settingsContent section">
-              <Seeds/>
-              <CreateButton/>
-            </div>
-          </div>
-        </div>
-        <div className="playlistView section">
+        <Section id="searchView" title="Add seed tracks">
+          <SearchForm/>
+          <SearchResults/>
+        </Section>
+        <Section id="seedTracks" title="Seed tracks">
+          <Seeds/>
+          <CreateButton/>
+        </Section>
+        <Section id="playlistView" title="playlist">
           <Playlist/>
-        </div>
+        </Section>
       </div>
     );
   }

@@ -87,8 +87,7 @@ export default class Seeds extends React.Component<any, any> {
     );
 
     return (
-      <div className={empty ? 'seedTracks empty' : 'seedTracks'}>
-        <h2 className="heading">Seed tracks</h2>
+      <div className={empty ? 'seeds empty' : 'seeds'}>
         {content}
       </div>
     );
